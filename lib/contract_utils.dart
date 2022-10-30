@@ -46,12 +46,12 @@ class EthereumUtils extends StateNotifier<bool> {
   initialSetup() async {
     print("#########STATE INIT###############");
     http.Client _httpClient = http.Client();
-    // _ethClient = Web3Client(_rpcUrl, _httpClient, socketConnector: () {
-    //   return IOWebSocketChannel.connect(_wsUrl).cast<String>();
-    // });
-    _ethClient = Web3Client(
-        "https://goerli.infura.io/v3/68d9e29cfc094544a8557d52482abcb1",
-        _httpClient);
+    _ethClient = Web3Client(_rpcUrl, _httpClient, socketConnector: () {
+      return IOWebSocketChannel.connect(_wsUrl).cast<String>();
+    });
+    // _ethClient = Web3Client(
+    //     "https://goerli.infura.io/v3/68d9e29cfc094544a8557d52482abcb1",
+    //     _httpClient);
 
     await getAbi();
     await getCredentials();
@@ -75,7 +75,7 @@ class EthereumUtils extends StateNotifier<bool> {
     _abi = jsonEncode(jsonAbi["abi"]);
 
     _contractAddress =
-        EthereumAddress.fromHex(jsonAbi["networks"]["5"]["address"]);
+        EthereumAddress.fromHex(jsonAbi["networks"]["5777"]["address"]);
     print(_contractAddress);
     print("#########GETTING ABI#########");
   }
@@ -92,8 +92,8 @@ class EthereumUtils extends StateNotifier<bool> {
       // pk = "acecb1c36ac48a41ff31140ec9085e8244b10cae341ff06af1a147ec79d0924c";
       // pk = "0x806D6834F5991FC0bdE702d546702131690Aa1d2";
       // pk = "f56eac917c3752845ae1a98b0d4210a1e51fb43357318f790ad4649403f57c06";
-      // pk = "acecb1c36ac48a41ff31140ec9085e8244b10cae341ff06af1a147ec79d0924c";
-      pk = "4682ee6c3e6c82fc842d3d775c360fadf3b85fa3881c947eeea388579c276215";
+      pk = "acecb1c36ac48a41ff31140ec9085e8244b10cae341ff06af1a147ec79d0924c";
+      // pk = "4682ee6c3e6c82fc842d3d775c360fadf3b85fa3881c947eeea388579c276215";
       _credentials = EthPrivateKey.fromHex(pk);
     }
   }

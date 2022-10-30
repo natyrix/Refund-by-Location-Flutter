@@ -34,6 +34,8 @@ class _MapPageState extends ConsumerState<MapPage> {
   List<Marker> markers = [];
   late Timer timer;
 
+  var d;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -288,6 +290,17 @@ class _MapPageState extends ConsumerState<MapPage> {
           color: Colors.red,
         ),
       ));
+      d = CircleLayerOptions(circles: [
+        CircleMarker(
+            //radius marker
+            point: v,
+            color: Colors.blue.withOpacity(0.3),
+            borderStrokeWidth: 3.0,
+            borderColor: Colors.blue,
+            useRadiusInMeter: true,
+            radius: double.parse(contractInfo['radius'].toString()) //radius
+            )
+      ]);
       setState(() {});
       sendLocation(ethUtils, lat, lng, contractInfo['radius']);
       // timer = Timer.periodic(const Duration(seconds: 60), (t) {
@@ -378,6 +391,7 @@ class _MapPageState extends ConsumerState<MapPage> {
           MarkerLayerOptions(
             markers: markers,
           ),
+          d ?? CircleLayerOptions()
         ],
       ),
     );

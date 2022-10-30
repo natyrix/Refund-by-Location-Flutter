@@ -15,6 +15,7 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
   List<Marker> markers = [];
+  var d;
 
   latlng.LatLng startingCoord = latlng.LatLng(7.052977, 38.486543);
 
@@ -41,6 +42,18 @@ class _HistoryState extends State<History> {
         color: Colors.black,
       ),
     ));
+    d = CircleLayerOptions(circles: [
+      CircleMarker(
+          //radius marker
+          point: v,
+          color: Colors.blue.withOpacity(0.3),
+          borderStrokeWidth: 3.0,
+          borderColor: Colors.blue,
+          useRadiusInMeter: true,
+          radius:
+              double.parse(widget.contractInfo['radius'].toString()) //radius
+          )
+    ]);
     var len = await widget.ethUtils.getEmployeeLocationCount();
     // var empLocation = await widget.ethUtils.getEmployeeLocation(BigInt.from(0));
     // len = 1;
@@ -105,6 +118,7 @@ class _HistoryState extends State<History> {
           MarkerLayerOptions(
             markers: markers,
           ),
+          d ?? CircleLayerOptions()
         ],
       ),
     );
